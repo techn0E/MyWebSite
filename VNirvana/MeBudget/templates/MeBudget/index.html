@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MeBudget</title>
+  <link rel="stylesheet" href="{% static 'MeBudget/defaultpage.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="{% static 'MeBudget/mebudget-high-resolution-logo.png'%}" alt="Logo">
+        </div>
+        <h2>{{ error_msg }}</h2>
+        <h1>Welcome to MeBudget</h1>
+        <p>Already a member? <a href="{% url 'login' %}">Sign-in</a></p>
+        <p>Not a member? <a href="{% url 'register' %}">Sign-Up</a></p>
+    </div>
+</body>
+</html>

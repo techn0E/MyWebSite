@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MeBudget</title>
+  <link rel="stylesheet" href="{% static 'MeBudget/signinup.css' %}" />
+</head>
+<body>
+  <h1>Register</h1>
+  <div class="container">
+    <div class="logo">
+      <img src="{% static 'MeBudget/mebudget-high-resolution-logo.png'%}" alt="Logo">
+    </div>
+    <form method="POST" class="formclass">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Sign-Up</button>
+        </div>
+    </form>
+    <h2>{{ error_msg }}</h2>
+    <p>Already a member? <a href="{% url 'login' %}">Sign-In</a></p>
+  </div>
+</body>
+</html>

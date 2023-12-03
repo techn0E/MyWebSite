@@ -1,0 +1,114 @@
+{% load static %}
+<html lang="en">
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Budget App</title>
+      <!-- Font Awesome Icons -->
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      />
+      <!-- Google Fonts -->
+      <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap"
+        rel="stylesheet"
+      />
+      <!-- Stylesheet -->
+      <link rel="stylesheet" href="{% static 'MeBudget/style.css' %}" />
+      <link rel="stylesheet" href="{% static 'MeBudget/sidebar.css' %}" />
+    </head>
+    <body>
+      
+      <div class="sidenav">
+        <div class="nickname">{{user}}</div>
+        <a href="#budget">Budget</a>
+        <a href="#balance">Balance</a>
+        <a href="#expenses">Expenses</a>
+        <a href="#motivation-box">Motivation</a>
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}      
+          <button type="submit" class="logout-submit" >Logout</button>
+        </form>
+      </div>
+
+      <div class="logo" id="budget">
+        <img src="{% static 'MeBudget/mebudget-high-resolution-logo.png'%}" alt="Logo">
+      </div>
+      <div class="wrapper">
+        <div class="container">
+          <div class="sub-container">
+            <!-- Budget --><!-- Earning--><!-- Expenditure -->
+            <!-- Budget-->
+            <div class="total-amount-container">
+              <h3>Budget</h3>
+              <form method="post" action="{% url 'profile' %}">
+                {% csrf_token %}
+                {{ budgetform.total_amount }}
+                <button type="submit" class="submit" id="total-amount-button">Set Budget</button>
+              </form>
+            </div>
+            <!-- Earning-->
+            <div class="earning-amount-container">
+                <h3>Earnings</h3>
+                <p class="hide error" id="earning-error">
+                    Value cannot be empty or negative
+                </p>
+                <form method="post" action="{% url 'profile' %}">
+                  {% csrf_token %}
+                    {{ earningform.earning_amount }}
+                    <button type="submit" class="submit" id="earning-amount-button">Set Earnings</button>
+                </form>
+              </div>
+              <form method="post" action="{% url 'profile' %}">
+                {% csrf_token %}
+                <div class="user-amount-container">
+                  <h3>Expenses</h3>
+                  {% for field in expenseform %}
+                        {{ field }}
+                        {% endfor %}
+                        <button type="submit" class="submit" id="check-amount">Check Amount</button>
+                      </div>
+            </form>
+          </div>
+          <!-- Output -->
+        <div class="output-container flex-space" id="balance">
+          <div>
+            <p>Total Budget</p>
+            <span id="amount">{{ budget }}</span>
+          </div>
+          <div>
+            <p>Expenses</p>
+            <span id="expenditure-value">{{ expenses }}</span>
+          </div>
+          <div>
+            <p>Earnings</p>
+            <span id="earning-value">{{ earnings }}</span>
+          </div>
+          <div>
+            <p>Balance</p>
+            <span id="balance-amount">{{ balance }}</span>
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="list" id="expenses">
+          <h3>Expense List</h3>
+          <div class="list-container" id="list">
+            {% for product in products %}
+            <div class="sublist-content flex-space">
+              <p class="product">{{product.product_title}}</p>
+              <p class="amount">{{product.user_amount}}</p>
+              <button class="fa-solid fa-pen-to-square edit" style="font-size: 1.2em;"></button>
+              <button class="fa-solid fa-trash-can delete" style="font-size: 1.2em;"></button>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="motivation-container" id="motivation-box">
+        <h2 style="text-align: center; margin: 20px" >{{text}}</h2>
+      </div>
+      <!-- Script -->
+      <!-- <script src="{% static 'MeBudget/main.js' %}"></script> -->
+    </body>
+    </html>

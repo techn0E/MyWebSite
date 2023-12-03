@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeBudget</title>
+    <style>
+      body{
+        background-color: antiquewhite;
+      }
+    </style>
+</head>
+<body>
+  <h1 style="text-align: center;">NAME AND PASSWORD</h1>
+    <ol>      
+      {% for i in Data %}
+      <li style="text-align: center;">{{i.username}} : {{i.password}}</li>
+      {% endfor %}
+    </ol>
+    </body>
+</html>
